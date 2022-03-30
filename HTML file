@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+
+<head>
+  <title>
+    POC Calender
+  </title>
+</head>
+
+<style>
+  body {
+    width: 100%;
+    display: flex;
+    margin-top: 0px;
+    justify-content: center;
+    background-color: #FFFCFF;
+  }
+
+  #weekdays {
+    font-size: 18px;
+    margin-top: 5px;
+    text-align: center;
+    width: 100%;
+    display: flex;
+    color: #16181a;
+  }
+
+
+  #NavCalender {
+    background-color: #f4f0f0;
+    font-size: 18px;
+    font-family: sans-serif;
+
+  }
+
+  #NavCalender {
+    display: flex;
+
+  }
+
+  #container {
+    width: 100%;
+  }
+
+  #weekdays div {
+    width: 100%;
+  }
+
+  #weekdays div h4 {
+    width: 100%;
+  }
+
+  .day {
+    width: 205px;
+    padding: 5px;
+    height: 105px;
+    cursor: pointer;
+    box-sizing: border-box;
+    background-color: white;
+    margin: 6px;
+    box-shadow: 0px 0px 3px #CBD4C2;
+    display: flex;
+    
+  }
+
+  #calender {
+    width: 100%;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+
+  .event {
+    font-size: 10px;
+    padding: 3px;
+    background-color: #58bae4;
+    color: white;
+    border-radius: 5px;
+    max-height: 55px;
+    
+  } 
+
+  #newEventModal,
+  #deleteEventModal {
+    display: none;
+    z-index: 20;
+    padding: 25px;
+    background-color: #e8f4fa;
+    box-shadow: 0px 0px 3px black;
+    border-radius: 5px;
+    width: 350px;
+    top: 100px;
+    left: calc(50% - 175px);
+    position: absolute;
+    font-family: sans-serif;
+  }
+
+  #eventTitleInput {
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 25px;
+    border-radius: 3px;
+    outline: none;
+    border: none;
+    box-shadow: 0px 0px 3px gray;
+  }
+
+  #eventTitleInput.error {
+    border: 2px solid red;
+  }
+
+  #cancelButton,
+  #deleteButton {
+    background-color: #d36c6c;
+  }
+
+  #saveButton,
+  #closeButton {
+    background-color: #92a1d1;
+  }
+
+  #eventText {
+    font-size: 14px;
+  }
+
+  #modalBackDrop {
+    display: none;
+    top: 0px;
+    left: 0px;
+    z-index: 10;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+</style>
+
+<body>
+
+  <div id="container">
+    <div id="NavCalender">
+      <button> Today</button>
+      <input type="submit" id="backButton" value="&#8595;"></button>
+      <input type="submit" id="nextButton" value="&#8593;"></button>
+      <div id="Show"> </div>
+      <div id="changeYear">
+        <select id="year">
+          <!-- <option value="None" ></option> -->
+        </select>
+
+      </div>
+
+    </div>
+    <div id="weekdays">
+      <div>Monday</div>
+      <div>Tuesday</div>
+      <div>Wednesday</div>
+      <div>Thrusday</div>
+      <div>Friday</div>
+      <div>Saturday</div>
+      <div>Sunday</div>
+    </div>
+    <div id="calender">
+
+    </div>
+
+  </div>
+
+
+  <div id="newEventModal">
+    <h2>New Event</h2>
+
+    <input id="eventTitleInput" placeholder="Event Title" />
+
+    <button id="saveButton">Save</button>
+    <button id="cancelButton">Cancel</button>
+  </div>
+
+  <div id="deleteEventModal">
+    <h2>Event</h2>
+
+    <p id="eventText"></p>
+
+    <button id="deleteButton">Delete</button>
+    <button id="closeButton">Close</button>
+  </div>
+
+
+
+
+  <script src="Calender.js"></script>
+</body>
