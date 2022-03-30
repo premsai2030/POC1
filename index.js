@@ -3,7 +3,7 @@ let currentMonth = 0;
 let clicked = null;
 let events = localStorage.getItem('events') ? JSON.parse(localStorage.getItem('events')) : [];
 
-
+// use DOMContentLoaded method to make sure all the html is loaded -> issue1
 const calendar = document.getElementById('calender');
 const newEventModal = document.getElementById('newEventModal');
 const deleteEventModal = document.getElementById('deleteEventModal');
@@ -23,10 +23,11 @@ function openModal(date) {
         newEventModal.style.display = 'block';
     }
 
-   
+
 }
- 
-var changedYear=0;
+
+var changedYear = 0;
+// issue1- keep this function inside that method
 loadCalender();
 
 function loadCalender(changedYear) {
@@ -48,9 +49,9 @@ function loadCalender(changedYear) {
     if (currentMonth !== 0) {
         console.log(' Month:' + dt.getMonth())
         console.log('+' + currentMonth)
-    /**
-   * IN dt here day from dt changed as here at last i am adding 2 to set logic for february else it will not show month february in calender
-   */
+        /**
+       * IN dt here day from dt changed as here at last i am adding 2 to set logic for february else it will not show month february in calender
+       */
         dt.setMonth(dt.getMonth() + currentMonth, +2);
         console.log(' Month:' + dt.getMonth())
     }
@@ -59,21 +60,21 @@ function loadCalender(changedYear) {
 
     const month = dt.getMonth();
 
-    if( changedYear){
-   var year =  changedYear;
-   
-     console.log(year);
-    }
-    else{
+    if (changedYear) {
+        var year = changedYear;
 
-    var year = dt.getFullYear();
+        console.log(year);
+    }
+    else {
+
+        var year = dt.getFullYear();
     }
 
     const firstDayOfMonth = new Date(year, month, 1);
     const daysInMonth = new Date(year, month + 1, 0).getDate();
-    
+
     const PredaysInMonth = new Date(year, month, 0).getDate();
-    
+
     document.getElementById('Show').innerText =
         `${dt.toLocaleDateString('en-us', { month: 'long' })} `;
 
@@ -82,7 +83,7 @@ function loadCalender(changedYear) {
         blankDays = 6;
     }
 
-    
+
     calendar.innerHTML = '';
 
     let preBlank = blankDays;
@@ -91,7 +92,7 @@ function loadCalender(changedYear) {
     for (let i = 1; i <= blankDays + daysInMonth; i++) {
 
         const dayString = `${month + 1}/${i - blankDays}/${year}`;
-        
+
         preBlank--;
         if (i <= blankDays) {
             const daySquare1 = document.createElement('div');
@@ -99,14 +100,14 @@ function loadCalender(changedYear) {
             var fetch = PredaysInMonth - preBlank;
 
             daySquare1.innerText = fetch;
-            daySquare1.style["color"] ='red';
+            daySquare1.style["color"] = 'red';
 
 
-            
-        calendar.appendChild(daySquare1);
+
+            calendar.appendChild(daySquare1);
         }
 
-      else if (i > blankDays) {
+        else if (i > blankDays) {
             const daySquare = document.createElement('div');
             daySquare.classList.add('day');
 
@@ -127,14 +128,14 @@ function loadCalender(changedYear) {
             }
 
             daySquare.addEventListener('click', () => openModal(dayString));
-         
-      
-        daySquare.style["background-color"] ='#e4e6eb';
-        daySquare.style["color"] ='blue';
-        calendar.appendChild(daySquare);
-      
 
-      }
+
+            daySquare.style["background-color"] = '#e4e6eb';
+            daySquare.style["color"] = 'blue';
+            calendar.appendChild(daySquare);
+
+
+        }
 
     }
 
@@ -151,11 +152,11 @@ function loadCalender(changedYear) {
         daySquare.innerText = i - daysInMonth;
         if (daySquare.innerText == 1) {
             daySquare.classList.add('day');
-  /**
-   * dt1 to set 1 day of next month in calender 
-   */
+            /**
+             * dt1 to set 1 day of next month in calender 
+             */
             daySquare.innerText = '1 ' + `${dt1.toLocaleDateString('en-us', { month: 'long' })}`;
-           
+
         }
 
         calendar.appendChild(daySquare);
@@ -191,15 +192,15 @@ ChangeMonth();
 loadYears();
 
 function loadYears() {
-/**
- * Getting Date in dt here again to set month year accordingly while reloading calender. 
- */
+    /**
+     * Getting Date in dt here again to set month year accordingly while reloading calender. 
+     */
     const dt = new Date();
     if (currentMonth !== 0) {
         dt.setMonth(new Date().getMonth() + currentMonth);
     }
     var year = dt.getFullYear();
-  
+
     Saal = document.getElementById('year');
 
     var startYear = 1900;
@@ -217,25 +218,25 @@ function loadYears() {
             Saal.options[j].setAttribute("selected", "selected");
         }
     }
-        Saal.onchange =()=>{
-        
-           
-            Saal = document.getElementById('year');
-            var selectedYear = Saal.value;
-            
-        
-                 var year1 = selectedYear;
-                 var localYear = year1-year;
-                 console.log(localYear)
-                
-                 
-                 dt.setFullYear(dt.getFullYear()  + localYear);
-                 changedYear =dt.getFullYear();
-                 
-                 loadCalender(changedYear);
-                 loadYears();
-                
-        
+    Saal.onchange = () => {
+
+
+        Saal = document.getElementById('year');
+        var selectedYear = Saal.value;
+
+
+        var year1 = selectedYear;
+        var localYear = year1 - year;
+        console.log(localYear)
+
+
+        dt.setFullYear(dt.getFullYear() + localYear);
+        changedYear = dt.getFullYear();
+
+        loadCalender(changedYear);
+        loadYears();
+
+
         Saal.appendChild(Addoption);
     }
 
@@ -247,12 +248,12 @@ function closeModal() {
     eventTitleInput.classList.remove('error');
     newEventModal.style.display = 'none';
     deleteEventModal.style.display = 'none';
-  
+
     eventTitleInput.value = '';
     clicked = null;
     loadCalender();
     ChangeMonth();
-     loadYears();
+    loadYears();
 }
 
 function saveEvent() {
