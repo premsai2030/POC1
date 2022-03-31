@@ -2,7 +2,6 @@
 var currentMonth=0;
 const calendar = document.getElementById('calender');
 
-// add comments
 document.addEventListener("DOMContentLoaded", function() {
     date = new Date();
     var year = date.getFullYear();
